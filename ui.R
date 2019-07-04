@@ -16,35 +16,35 @@ ui <- shiny::fluidPage(
 	###
 	shiny::tags$head(
 		shiny::tags$script(
-			"
-				// define a function that returns a struct named resolution
-				// containing width and height of the inner window
-				// accessible in shiny as a list named input$resolution
-				// which elements are
-				// width:  input$resolution$width
-				// height: input$resolution$height
-				function
-				resized( e ) {
-            		Shiny.onInputChange( 
-            			'resolution', 
-            			{ 
-            				width  : window.innerWidth,
-            				height : window.innerHeight
-            			}
-            		);
-				}
-            	
-            	// call the function resized when shiny connects
-				$(document).on(
-                	'shiny:connected',
-                	resized
-                );
+"
+// define a function that returns a struct named resolution
+// containing width and height of the inner window
+// accessible in shiny as a list named input$resolution
+// which elements are
+// width:  input$resolution$width
+// height: input$resolution$height
+function
+resized( e ) {
+	Shiny.onInputChange( 
+		'resolution', 
+		{ 
+			width  : window.innerWidth,
+			height : window.innerHeight
+		}
+	);
+}
 
-            	// call the function resized when the window resizes
-                $( window ).resize(
-                	resized
-                );
-				"
+// call the function resized when shiny connects
+$(document).on(
+	'shiny:connected',
+	resized
+);
+
+// call the function resized when the window resizes
+$( window ).resize(
+	resized
+);
+"
 		)
 	),
 	
@@ -54,6 +54,11 @@ ui <- shiny::fluidPage(
 	# add a plot with dynamic height
 	shiny::uiOutput( "myPlotUI" ),
 	
-	# add a textOutput to have something below the plot
-	shiny::textOutput( "resolution_text" )
+	fluidRow(
+	
+		# add a textOutput to have something below the plot
+		column( 11, shiny::textOutput( "resolution_text" ) ),
+	
+		column( 1, shiny::tags$a( "Code on GitHub", href = "https://github.com/TPeschel/RShinyDynamicPlotHeightExample" ) )
+	)
 )
