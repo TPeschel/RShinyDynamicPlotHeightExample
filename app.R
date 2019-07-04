@@ -2,22 +2,13 @@
 # minimal example
 ###
 
-###
-# first: find by binary partition the right values for the height of the slider and text and min plot.height
-###
-                                                  # in my browser, maybe in all ;o)
-slider.height   <- 64 + 32 + 4                    # 100
-text.height     <- 16 + 4                         # 20
-min.plot.height <- 128 + 64 + 32 + 16 + 8 + 4 + 1 # 253
-
-source( "ui" )
-source( "server" )
+source( "ui.R" )
+source( "server.R" )
 
 shiny::shinyApp(
 	ui = ui,
 	server = server
 )
-
 
 ###
 # some shinydashboard use example

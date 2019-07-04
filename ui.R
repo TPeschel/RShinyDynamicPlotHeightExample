@@ -48,17 +48,15 @@ $( window ).resize(
 		)
 	),
 	
-	# add a sliderInput to have something above the plot
-	shiny::sliderInput( "SLIDER_N", "n", 100, 1000, 10 ),
+	fluidRow(
+		# add a sliderInput to have something above the plot
+		column( 6, shiny::sliderInput( "SLIDER_N", "count of random numbers", 100, 1000, 10 ) ),
+		column( 6, shiny::tags$a( "Code on GitHub", href = "https://github.com/TPeschel/RShinyDynamicPlotHeightExample" ) )
+	),
 	
 	# add a plot with dynamic height
 	shiny::uiOutput( "myPlotUI" ),
-	
-	fluidRow(
-	
-		# add a textOutput to have something below the plot
-		column( 11, shiny::textOutput( "resolution_text" ) ),
-	
-		column( 1, shiny::tags$a( "Code on GitHub", href = "https://github.com/TPeschel/RShinyDynamicPlotHeightExample" ) )
-	)
+		
+	# add a textOutput to have something below the plot
+	shiny::textOutput( "resolution_text" )
 )
