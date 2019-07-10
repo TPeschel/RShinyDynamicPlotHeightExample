@@ -50,5 +50,5 @@ ui <- fluidPage(
 	
 	shiny::uiOutput( "myPlotUI" ),
 	
-	progressBar( "progress", 0, 5, T, size = 'sm', "primary", T, unit_mark = "s" )
+	progressBar( "progress", 0, 5, T, size = 'sm', "primary", T )
 )
