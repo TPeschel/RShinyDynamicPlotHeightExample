@@ -4,8 +4,6 @@ library( shinyWidgets )
 
 ui <- fluidPage(
 	
-	shinyjs::useShinyjs( ),
-	
 	shiny::tags$head(
 		shiny::tags$script(
 			"

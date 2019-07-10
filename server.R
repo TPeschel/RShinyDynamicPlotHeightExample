@@ -13,7 +13,9 @@ analyse <- function( x ,level = .975 ) {
 }
 
 min.plot.height <- 253
-y.offset <- 160
+y.offset.small <- 360
+y.offset.wide  <- 160
+width.1        <- 768
 
 server <- function( input, output, session ) {
 	
@@ -21,22 +23,20 @@ server <- function( input, output, session ) {
 	
 	rv$plot.time <- Sys.time( )
 	
-	screen.height <- function( ) {
+	plot.height <- function( ) {
 		
-		shinyjs::runjs( "$('*').each(function(i,e){console.log(i+' '+e)});" )
-				
+		if( is.null( input$resolution ) ) return( min.plot.height )
+		
 		print( input$resolution )
 		
-		i <-
-			ifelse(
-				is.null( input$resolution ) || input$resolution$height < y.offset + min.plot.height,
-				min.plot.height,
-				as.integer( input$resolution$height )
-			)
-		
-		print( i )
-		
-		i
+		if( input$resolution$width < width.1 ) {
+			
+			return( as.integer( input$resolution$height - y.offset.small ) )
+		}
+		else {
+			
+			return( as.integer( input$resolution$height - y.offset.wide ) )
+		}
 	}
 	
 	observe( {
@@ -68,7 +68,7 @@ server <- function( input, output, session ) {
 			
 			output$myPlotUI <- renderUI( {
 				
-				plotOutput( "plot", height = screen.height( ) - y.offset )	
+				plotOutput( "plot", height = plot.height( ) )	
 			} )
 			
 			updateProgressBar( session, "progress", 5., 5., "plot finished", "info" )
